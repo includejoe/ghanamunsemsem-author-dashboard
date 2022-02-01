@@ -1,9 +1,15 @@
 import React from "react";
 
+import { FooterWrapper } from "./styles";
+
 export default function Footer() {
   return (
-    <div>
-      <h1>Footer</h1>
-    </div>
+    <FooterWrapper>
+      <p>
+        Ghanamunsemsem Copyright &copy;{new Date().getFullYear()} All rights
+        resserved
+      </p>
+      <p>DESIGNED & CREATED BY JOE</p>
+    </FooterWrapper>
   );
 }

@@ -11,7 +11,7 @@ export const theme = {
     lg: "3em",
   },
   fontColor: {
-    primary: "#030e12",
+    primary: "#4d4d4d",
     secondary: "#6e6e6e",
   },
   breakPoint: {

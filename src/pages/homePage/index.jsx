@@ -4,15 +4,17 @@ import { useTheme } from "styled-components";
 import { Container, Button } from "../../common.styles";
 import { TopSection, LeftSide, RightSide } from "./styles";
 import Illustration1 from "../../assets/images/be_an_author.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardPage() {
   const theme = useTheme();
+  const navigate = useNavigate();
   return (
     <Container>
       <TopSection>
         <LeftSide>
           <div>
-            <h1>Be an author</h1>
+            <h1>Become a writer</h1>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
               pariatur obcaecati rem id neque cumque nam. Quibusdam modi
@@ -24,8 +26,9 @@ export default function DashboardPage() {
               length="200px"
               bg={theme.color.faint}
               color={theme.fontColor.primary}
+              onClick={() => navigate("/signup")}
             >
-              Be an Author
+              Join the team
             </Button>
           </div>
         </LeftSide>
