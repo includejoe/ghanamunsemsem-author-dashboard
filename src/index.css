@@ -33,3 +33,17 @@ a {
   background: #52ab98;
   border-radius: 5px;
 }
+
+::-webkit-file-upload-button {
+  height: 100%;
+  width: 20%;
+  border: none;
+  background: #2b6777;
+  font-family: "Quicksand", sans-serif;
+  color: #fff;
+  cursor: pointer;
+}
+
+::-webkit-file-upload-button:hover {
+  filter: brightness(0.95);
+}

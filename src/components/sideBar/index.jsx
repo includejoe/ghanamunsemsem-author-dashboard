@@ -4,7 +4,7 @@ import { FaHome } from "react-icons/fa";
 import { BsPenFill } from "react-icons/bs";
 
 import ProfileAvatar from "../../assets/images/profile_avatar.png";
-import { Container, ProfileArea, MenuItems } from "./styles";
+import { Container, ProfileArea, MenuItems, Link } from "./styles";
 
 export default function SideBar({ isShowing }) {
   const navigate = useNavigate();
@@ -19,17 +19,21 @@ export default function SideBar({ isShowing }) {
         </div>
       </ProfileArea>
       <MenuItems>
-        <li onClick={() => navigate("/dashboard")}>
-          <span className="item-icon">
-            <FaHome />
-          </span>
-          Home
+        <li>
+          <Link exact="true" to="/dashboard">
+            <span className="item-icon">
+              <FaHome />
+            </span>
+            Home
+          </Link>
         </li>
-        <li onClick={() => navigate("/create_blog")}>
-          <span className="item-icon">
-            <BsPenFill />
-          </span>
-          Create Blog
+        <li>
+          <Link exact="true" to="/create_blog">
+            <span className="item-icon">
+              <BsPenFill />
+            </span>
+            Create Blog
+          </Link>
         </li>
       </MenuItems>
     </Container>

@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const Container = styled.div`
-  display: ${({ isShowing }) => (isShowing ? "flex" : "none")};
+  display: flex;
   flex-direction: column;
   background: ${({ theme }) => theme.color.primary};
   color: #fff;
@@ -12,7 +13,8 @@ const Container = styled.div`
   padding-top: 20px;
   padding-right: 20px;
   position: fixed;
-  left: 0;
+  left: ${({ isShowing }) => (isShowing ? 0 : "-1000px")};
+  transition: all 0.3s ease-in-out;
 `;
 
 const ProfileArea = styled.div`
@@ -39,13 +41,20 @@ const MenuItems = styled.ul`
     align-items: center;
     margin-right: 10px;
   }
+`;
 
-  li {
-    display: flex;
-    align-items: center;
-    height: 50px;
-    cursor: pointer;
+const Link = styled(NavLink)`
+  color: #fff;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  padding-left: 10px;
+
+  &.active {
+    border-left: 5px solid ${({ theme }) => theme.color.secondary};
   }
 `;
 
-export { Container, ProfileArea, MenuItems };
+export { Container, ProfileArea, MenuItems, Link };

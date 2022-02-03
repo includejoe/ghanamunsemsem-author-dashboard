@@ -116,9 +116,11 @@ const InputField = styled.input`
 const AuthContentContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 80%;
   padding: 20px 50px;
   margin-left: ${({ isSideBarShowing }) => (isSideBarShowing ? "250px" : "0")};
+  transition: all 0.3s ease-in-out;
 `;
 
 export {

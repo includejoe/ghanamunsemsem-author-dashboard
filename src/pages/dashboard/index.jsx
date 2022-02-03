@@ -15,7 +15,7 @@ export default function Dashboard() {
       <SideBar isShowing={isShowing} />
       <AuthContentContainer isSideBarShowing={isShowing}>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-          <BlogTile>
+          <BlogTile key={item}>
             <h5 className="title">Lorem ipsum dolor sit.</h5>
             <p className="snippet">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum,
