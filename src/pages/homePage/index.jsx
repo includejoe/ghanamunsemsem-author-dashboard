@@ -1,16 +1,19 @@
 import React from "react";
 import { useTheme } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
+import Navbar from "../../components/navbar";
+import Footer from "../../components/footer";
 import { Container, Button } from "../../common.styles";
 import { TopSection, LeftSide, RightSide } from "./styles";
 import Illustration1 from "../../assets/images/be_an_author.svg";
-import { useNavigate } from "react-router-dom";
 
 export default function DashboardPage() {
   const theme = useTheme();
   const navigate = useNavigate();
   return (
     <Container>
+      <Navbar />
       <TopSection>
         <LeftSide>
           <div>
@@ -36,6 +39,7 @@ export default function DashboardPage() {
           <img src={Illustration1} alt="be an author" />
         </RightSide>
       </TopSection>
+      <Footer />
     </Container>
   );
 }

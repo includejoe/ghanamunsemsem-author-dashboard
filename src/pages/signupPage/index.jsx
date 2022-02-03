@@ -2,6 +2,10 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useTheme } from "styled-components";
+import { Link } from "react-router-dom";
+
+import Footer from "../../components/footer";
+import Navbar from "../../components/navbar";
 import {
   Container,
   FormWrapper,
@@ -9,7 +13,6 @@ import {
   InputField,
   Button,
 } from "../../common.styles";
-import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   const theme = useTheme();
@@ -44,6 +47,7 @@ export default function LoginPage() {
 
   return (
     <Container>
+      <Navbar />
       <FormWrapper onSubmit={formik.handleSubmit}>
         <div className="inner-container" style={{ minHeight: "750px" }}>
           <div className="top-text">
@@ -132,6 +136,7 @@ export default function LoginPage() {
           </p>
         </div>
       </FormWrapper>
+      <Footer />
     </Container>
   );
 }

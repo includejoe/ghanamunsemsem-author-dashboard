@@ -30,6 +30,8 @@ const Button = styled.button`
   }
 `;
 
+// Login & Sign Up Styles
+
 const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
@@ -109,4 +111,21 @@ const InputField = styled.input`
   }
 `;
 
-export { Container, Button, FormWrapper, EachInputArea, InputField };
+// Authenticated Styles
+
+const AuthContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  padding: 20px 50px;
+  margin-left: ${({ isSideBarShowing }) => (isSideBarShowing ? "250px" : "0")};
+`;
+
+export {
+  Container,
+  Button,
+  FormWrapper,
+  EachInputArea,
+  InputField,
+  AuthContentContainer,
+};

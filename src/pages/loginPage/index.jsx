@@ -6,6 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import Axios from "axios";
 
+import Navbar from "../../components/navbar";
+import Footer from "../../components/footer";
+import { AuthContext } from "../../contexts/authContext";
+
 import {
   Container,
   FormWrapper,
@@ -13,7 +17,6 @@ import {
   InputField,
   Button,
 } from "../../common.styles";
-import { AuthContext } from "../../contexts/authContext";
 
 export default function LoginPage() {
   const theme = useTheme();
@@ -52,6 +55,7 @@ export default function LoginPage() {
 
   return (
     <Container>
+      <Navbar />
       <FormWrapper onSubmit={formik.handleSubmit}>
         <div className="inner-container">
           <div className="top-text">
@@ -103,6 +107,7 @@ export default function LoginPage() {
           </p>
         </div>
       </FormWrapper>
+      <Footer />
     </Container>
   );
 }

@@ -20,3 +20,16 @@ body {
 a {
   text-decoration: none;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #c8d8e4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #52ab98;
+  border-radius: 5px;
+}

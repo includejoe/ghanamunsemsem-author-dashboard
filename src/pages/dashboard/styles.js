@@ -1,26 +1,29 @@
 import styled from "styled-components";
 
-const Container = styled.div`
+const BlogTile = styled.div`
+  display: flex;
+  height: 40px;
   width: 100%;
-  display: flex;
+  align-items: center;
+  background: ${({ theme }) => theme.color.secondary};
+  border-radius: 4px;
+  justify-content: center;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 1em;
+  cursor: pointer;
+
+  .title {
+    margin-right: 3em;
+  }
+
+  .snippet {
+    margin-right: 3em;
+  }
+
+  &:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.481);
+  }
 `;
 
-const SideBar = styled.div`
-  display: ${({ isShowing }) => (isShowing ? "flex" : "none")};
-  flex-direction: column;
-  height: 100vh;
-  width: 250px;
-  border-right: 1px solid black;
-  padding-left: 35px;
-  padding-top: 40px;
-  padding-right: 20px;
-  flex: 2;
-`;
-
-const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 10;
-`;
-
-export { Container, SideBar, ContentContainer };
+export { BlogTile };

@@ -5,15 +5,13 @@ import { FiLogIn, FiLogOut } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 
-import { AuthContext } from "../../contexts/authContext";
 import { SideBarContext } from "../../contexts/sideBarContext";
 import ProfileAvatar from "../../assets/images/profile_avatar.png";
 import { Button } from "../../common.styles";
 import { NavWrapper, LeftSide, RightSide, LogoArea, Avatar } from "./styles";
 
-export default function Navbar() {
+export default function Navbar({ authenticated }) {
   const theme = useTheme();
-  const { author } = useContext(AuthContext);
   const sideBarContext = useContext(SideBarContext);
   const navigate = useNavigate();
 
@@ -73,5 +71,5 @@ export default function Navbar() {
     </NavWrapper>
   );
 
-  return author ? LoggedIn() : LoggedOut;
+  return authenticated ? LoggedIn() : LoggedOut;
 }

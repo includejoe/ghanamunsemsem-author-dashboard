@@ -14,10 +14,4 @@ export const theme = {
     primary: "#4d4d4d",
     secondary: "#6e6e6e",
   },
-  breakPoint: {
-    mobile: 768,
-    tablet: 992,
-    laptop: 1324,
-    desktop: 2024,
-  },
 };

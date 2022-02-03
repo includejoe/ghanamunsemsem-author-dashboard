@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { SideBarContextProvider } from "./contexts/sideBarContext";
@@ -8,8 +8,8 @@ import LoginPage from "./pages/loginPage";
 import SignupPage from "./pages/signupPage";
 import HomePage from "./pages/homePage";
 import Dashboard from "./pages/dashboard";
-import Navbar from "./components/navbar";
-import Footer from "./components/footer";
+import CreateBlogPage from "./pages/createBlogPage";
+import BlogDetailsPage from "./pages/blogDetailsPage";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./utils/theme";
 
@@ -19,7 +19,6 @@ function App() {
       <SideBarContextProvider>
         <ThemeProvider theme={theme}>
           <Router>
-            <Navbar />
             <Routes>
               <Route exact="true" path="/" element={<HomePage />} />
               <Route exact="true" path="/login" element={<LoginPage />} />
@@ -33,8 +32,25 @@ function App() {
                   </AuthRoute>
                 }
               />
+              <Route
+                exact="true"
+                path="/create_blog"
+                element={
+                  <AuthRoute>
+                    <CreateBlogPage />
+                  </AuthRoute>
+                }
+              />
+              <Route
+                exact="true"
+                path="/blog_details:id"
+                element={
+                  <AuthRoute>
+                    <BlogDetailsPage />
+                  </AuthRoute>
+                }
+              />
             </Routes>
-            <Footer />
           </Router>
         </ThemeProvider>
       </SideBarContextProvider>
