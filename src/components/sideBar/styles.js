@@ -41,6 +41,17 @@ const MenuItems = styled.ul`
     align-items: center;
     margin-right: 10px;
   }
+
+  .logout {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    font-weight: 600;
+  }
 `;
 
 const Link = styled(NavLink)`
@@ -51,6 +62,7 @@ const Link = styled(NavLink)`
   cursor: pointer;
   margin-bottom: 20px;
   padding-left: 10px;
+  border-radius: 4px;
 
   &.active {
     border-left: 5px solid ${({ theme }) => theme.color.secondary};

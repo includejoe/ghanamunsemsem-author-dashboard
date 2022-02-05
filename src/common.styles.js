@@ -11,7 +11,7 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${({ length }) => (length ? length : "auto")};
+  width: ${({ width }) => (width ? width : "auto")};
   height: 40px;
   outline: none;
   border-radius: 5px;
@@ -19,7 +19,7 @@ const Button = styled.button`
   padding: 10px 20px;
   font-size: ${({ theme, fontSize }) =>
     fontSize ? fontSize : theme.fontSize.sm};
-  font-weight: 700;
+  font-weight: 600;
   background: ${({ theme, bg }) => (bg ? bg : theme.color.secondary)};
   color: ${({ theme, color }) => (color ? color : "#fff")};
   transition: 0.2s all ease-in-out;
@@ -35,35 +35,45 @@ const Button = styled.button`
 const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
+  width: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  margin: 2em 0;
+  padding: 0 1em;
 
-  .inner-container {
-    width: 450px;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: ${({ theme }) => theme.color.primary};
-    border: none;
-    border-radius: 8px;
-    margin: 2em 0;
-    padding: 0 1em;
+  label {
+    font-weight: 600;
+  }
 
-    p {
-      color: #fff;
-      margin-top: 1em;
+  p {
+    color: red;
+    margin-top: 1em;
 
-      a {
-        text-decoration: underline;
-        color: ${({ theme }) => theme.color.secondary};
-      }
+    a {
+      text-decoration: underline;
+      color: ${({ theme }) => theme.color.secondary};
     }
   }
 
   .top-text {
     width: 100%;
-    color: #fff;
+    color: ${({ theme }) => theme.fontColor.primary};
     margin-bottom: 3em;
+    text-align: center;
+    line-height: 1.5;
+
+    h3 {
+      color: ${({ theme }) => theme.fontColor.secondary};
+    }
+  }
+
+  .down-text {
+    color: ${({ theme }) => theme.fontColor.primary};
+    font-weight: 600;
   }
 
   .error-message {
@@ -92,7 +102,8 @@ const EachInputArea = styled.div`
 
   p {
     margin-bottom: 0.25rem;
-    color: #fff;
+    color: red;
+    font-weight: 600;
     font-size: 11px;
   }
 `;
@@ -101,7 +112,10 @@ const InputField = styled.input`
   height: 42px;
   width: 100%;
   border-radius: 4px;
-  border: 2px solid #d1d1d1;
+  background: #f0f0f0;
+  font-family: "QuickSand", sans-serif;
+  font-weight: 500;
+  border: 1px solid #d1d1d1;
   outline: none;
   padding: 0 10px;
   transition: all 200ms ease-in;

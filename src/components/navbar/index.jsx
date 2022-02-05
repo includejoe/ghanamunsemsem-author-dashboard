@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useTheme } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { FiLogIn, FiLogOut } from "react-icons/fi";
+import { FiLogIn } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 

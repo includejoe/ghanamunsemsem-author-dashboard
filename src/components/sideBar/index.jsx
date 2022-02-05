@@ -1,13 +1,15 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
 import { FaHome } from "react-icons/fa";
 import { BsPenFill } from "react-icons/bs";
+import { FiLogOut } from "react-icons/fi";
 
 import ProfileAvatar from "../../assets/images/profile_avatar.png";
+import { AuthContext } from "../../contexts/authContext";
 import { Container, ProfileArea, MenuItems, Link } from "./styles";
 
 export default function SideBar({ isShowing }) {
-  const navigate = useNavigate();
+  const { author, logout } = useContext(AuthContext);
+  const { firstname, lastname } = author;
 
   return (
     <Container isShowing={isShowing}>
@@ -15,7 +17,7 @@ export default function SideBar({ isShowing }) {
         <img src={ProfileAvatar} alt="avatar" />
         <div className="text-area">
           <p>Welcome</p>
-          <h5>John Doe</h5>
+          {firstname && lastname && <h5>{firstname + " " + lastname}</h5>}
         </div>
       </ProfileArea>
       <MenuItems>
@@ -34,6 +36,12 @@ export default function SideBar({ isShowing }) {
             </span>
             Create Blog
           </Link>
+        </li>
+        <li className="logout" onClick={() => logout()}>
+          <span className="item-icon">
+            <FiLogOut />
+          </span>
+          Logout
         </li>
       </MenuItems>
     </Container>

@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useTheme } from "styled-components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "react-query";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import Navbar from "../../components/navbar";
 import { AuthContext } from "../../contexts/authContext";
@@ -16,10 +17,27 @@ export default function CreateBlogPage() {
   const { isShowing } = useContext(SideBarContext);
   const { author } = useContext(AuthContext);
   const theme = useTheme();
+  const [errors, setErrors] = useState("");
+  const navigate = useNavigate();
+  const token = localStorage.getItem("jwtToken");
 
   const mutation = useMutation((formValues) => {
     const endPoint = "http://localhost:8000/blogs/create";
-    Axios.post(endPoint, formValues);
+    Axios.post(endPoint, formValues, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "x-auth-token": token,
+      },
+    })
+      .then(({ data }) => {
+        console.log(data);
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        console.log(err.response);
+        // setErrors(err.response.data.errors[0].msg);
+        // console.log(errors);
+      });
   });
 
   const formik = useFormik({
@@ -36,8 +54,7 @@ export default function CreateBlogPage() {
       body: Yup.string().required("Required*"),
     }),
     onSubmit: (values) => {
-      console.log(values.image);
-      // mutation.mutate(values);
+      mutation.mutate(values);
     },
   });
 
@@ -71,7 +88,7 @@ export default function CreateBlogPage() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             >
-              <option value="" selected disabled hidden>
+              <option value="" disabled hidden>
                 Choose here
               </option>
               <option value="general">General</option>

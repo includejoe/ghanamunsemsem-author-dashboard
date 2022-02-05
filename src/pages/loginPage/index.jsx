@@ -8,6 +8,7 @@ import Axios from "axios";
 
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
+import Loader from "../../components/loader";
 import { AuthContext } from "../../contexts/authContext";
 
 import {
@@ -24,7 +25,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  const mutation = useMutation((formValues) => {
+  const { mutate, isLoading } = useMutation((formValues) => {
     const endPoint = "http://localhost:8000/auth/login";
     Axios.post(endPoint, formValues)
       .then(({ data }) => {
@@ -49,26 +50,27 @@ export default function LoginPage() {
       password: Yup.string().required("Required*"),
     }),
     onSubmit: (values) => {
-      mutation.mutate(values);
+      mutate(values);
     },
   });
 
   return (
     <Container>
       <Navbar />
-      <FormWrapper onSubmit={formik.handleSubmit}>
-        <div className="inner-container">
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <FormWrapper onSubmit={formik.handleSubmit}>
           <div className="top-text">
-            <h1>Welcome</h1>
-            <h1>Back</h1>
-            <p>please login to continue!</p>
+            <h1>Welcome Back</h1>
+            <h3>Please login to continue!</h3>
           </div>
           <EachInputArea>
+            <label htmlFor="email">Email:</label>
             <InputField
               id="email"
               name="email"
               type="text"
-              placeholder="Email"
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -78,11 +80,11 @@ export default function LoginPage() {
             ) : null}
           </EachInputArea>
           <EachInputArea>
+            <label htmlFor="password">Password:</label>
             <InputField
               id="password"
               name="password"
               type="password"
-              placeholder="Password"
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -92,21 +94,17 @@ export default function LoginPage() {
             ) : null}
           </EachInputArea>
           {error && <div className="error-message">{error}</div>}
-          <Button
-            type="submit"
-            bg={theme.color.faint}
-            color={theme.fontColor.primary}
-          >
+          <Button type="submit" bg={theme.color.primary} width="150px">
             Login In
           </Button>
-          <p>
+          <p className="down-text">
             Don't have an account?{" "}
             <Link exact="true" to="/signup">
               sign up
             </Link>
           </p>
-        </div>
-      </FormWrapper>
+        </FormWrapper>
+      )}
       <Footer />
     </Container>
   );

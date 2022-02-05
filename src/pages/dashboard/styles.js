@@ -2,27 +2,48 @@ import styled from "styled-components";
 
 const BlogTile = styled.div`
   display: flex;
-  height: 40px;
+  height: 90px;
   width: 100%;
-  align-items: center;
-  background: ${({ theme }) => theme.color.secondary};
-  border-radius: 4px;
-  justify-content: center;
-  color: #fff;
   transition: all 0.2s ease-in-out;
-  margin-bottom: 1em;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.481);
+  margin-bottom: 10px;
+
   cursor: pointer;
 
+  .image {
+    height: 100%;
+    width: 20%;
+    background-image: url(${({ image }) => image});
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    margin-right: 2em;
+  }
+
+  .text-area {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 5px 0;
+    justify-content: center;
+  }
+
   .title {
-    margin-right: 3em;
+    color: ${({ theme }) => theme.color.secondary};
   }
 
   .snippet {
-    margin-right: 3em;
+    color: ${({ theme }) => theme.fontColor.secondary};
+  }
+
+  .date {
+    font-size: 14px;
+    color: ${({ theme }) => theme.fontColor.secondary};
+    font-weight: 600;
   }
 
   &:hover {
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.481);
+    filter: brightness(0.3);
   }
 `;
 

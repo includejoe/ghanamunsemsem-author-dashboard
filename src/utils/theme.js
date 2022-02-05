@@ -12,6 +12,6 @@ export const theme = {
   },
   fontColor: {
     primary: "#4d4d4d",
-    secondary: "#6e6e6e",
+    secondary: "#878787",
   },
 };
