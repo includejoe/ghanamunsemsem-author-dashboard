@@ -6,6 +6,10 @@ const FormWrapper = styled.form`
   justify-content: center;
   width: 80%;
 
+  label {
+    font-weight: 600;
+  }
+
   .input-container {
     display: flex;
     flex-direction: column;
@@ -25,12 +29,15 @@ const Title = styled.input`
   height: 40px;
   padding: 10px;
   outline: none;
+  background: #fafafa;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  transition: all 200ms ease-in;
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
-  border: 1px solid ${({ theme }) => theme.color.primary};
 
   &:focus {
-    border: 1px solid ${({ theme }) => theme.color.secondary};
+    border: 2px solid ${({ theme }) => theme.color.secondary};
   }
 `;
 
@@ -41,10 +48,13 @@ const File = styled.input`
   cursor: pointer;
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
-  border: 1px solid ${({ theme }) => theme.color.primary};
+  background: #fafafa;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  transition: all 200ms ease-in;
 
   &:focus {
-    border: 1px solid ${({ theme }) => theme.color.secondary};
+    border: 2px solid ${({ theme }) => theme.color.secondary};
   }
 `;
 
@@ -56,10 +66,13 @@ const Category = styled.select`
   padding: 10px;
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
-  border: 1px solid ${({ theme }) => theme.color.primary};
+  background: #fafafa;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  transition: all 200ms ease-in;
 
   &:focus {
-    border: 1px solid ${({ theme }) => theme.color.secondary};
+    border: 2px solid ${({ theme }) => theme.color.secondary};
   }
 `;
 
@@ -72,10 +85,13 @@ const Body = styled.textarea`
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
   padding: 10px;
-  border: 1px solid ${({ theme }) => theme.color.primary};
+  background: #fafafa;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  transition: all 200ms ease-in;
 
   &:focus {
-    border: 1px solid ${({ theme }) => theme.color.secondary};
+    border: 2px solid ${({ theme }) => theme.color.secondary};
   }
 `;
 

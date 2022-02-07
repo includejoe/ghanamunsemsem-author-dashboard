@@ -7,7 +7,6 @@ import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import Navbar from "../../components/navbar";
-import { AuthContext } from "../../contexts/authContext";
 import { SideBarContext } from "../../contexts/sideBarContext";
 import SideBar from "../../components/sideBar";
 import { Container, AuthContentContainer, Button } from "../../common.styles";
@@ -15,34 +14,35 @@ import { FormWrapper, Title, File, Body, Category } from "./styles";
 
 export default function CreateBlogPage() {
   const { isShowing } = useContext(SideBarContext);
-  const { author } = useContext(AuthContext);
   const theme = useTheme();
   const [errors, setErrors] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("jwtToken");
 
-  const mutation = useMutation((formValues) => {
+  const { mutate, isLoading } = useMutation((formValues) => {
     const endPoint = "http://localhost:8000/blogs/create";
-    Axios.post(endPoint, formValues, {
+    let formData = new FormData();
+    formData.append("title", formValues.title);
+    formData.append("category", formValues.category);
+    formData.append("image", formValues.image);
+    formData.append("body", formValues.body);
+    Axios.post(endPoint, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         "x-auth-token": token,
       },
     })
       .then(({ data }) => {
-        console.log(data);
         navigate("/dashboard");
       })
       .catch((err) => {
-        console.log(err.response);
-        // setErrors(err.response.data.errors[0].msg);
-        // console.log(errors);
+        setErrors(err.response.data.errors[0].msg);
+        console.log(errors);
       });
   });
 
   const formik = useFormik({
     initialValues: {
-      author: author.id,
       title: "",
       category: "",
       image: "",
@@ -54,7 +54,7 @@ export default function CreateBlogPage() {
       body: Yup.string().required("Required*"),
     }),
     onSubmit: (values) => {
-      mutation.mutate(values);
+      mutate(values);
     },
   });
 
@@ -111,8 +111,9 @@ export default function CreateBlogPage() {
               type="file"
               required
               accept="image/*"
-              value={formik.values.image}
-              onChange={formik.handleChange}
+              onChange={(e) =>
+                formik.setFieldValue("image", e.currentTarget.files[0])
+              }
               onBlur={formik.handleBlur}
             />
           </div>
