@@ -21,7 +21,7 @@ const Button = styled.button`
     fontSize ? fontSize : theme.fontSize.sm};
   font-weight: 600;
   background: ${({ theme, bg }) => (bg ? bg : theme.color.secondary)};
-  color: ${({ theme, color }) => (color ? color : "#fff")};
+  color: ${({ color }) => (color ? color : "#fff")};
   transition: 0.2s all ease-in-out;
   cursor: pointer;
 
@@ -125,6 +125,44 @@ const InputField = styled.input`
   }
 `;
 
+const RadioArea = styled.div`
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2em;
+
+  input {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .label {
+    font-weight: 600;
+    font-size: inherit;
+    color: ${({ theme }) => theme.fontColor.primary};
+  }
+
+  .input-container {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    cursor: pointer;
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  p {
+    margin-bottom: 0.25rem;
+    color: red;
+    font-weight: 600;
+    font-size: 11px;
+  }
+`;
+
 // Authenticated Styles
 
 const AuthContentContainer = styled.div`
@@ -142,6 +180,7 @@ export {
   Button,
   FormWrapper,
   EachInputArea,
+  RadioArea,
   InputField,
   AuthContentContainer,
 };

@@ -4,30 +4,40 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "react-query";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { baseURL } from "../../utils/baseURL";
 import Navbar from "../../components/navbar";
 import { SideBarContext } from "../../contexts/sideBarContext";
 import SideBar from "../../components/sideBar";
 import { Container, AuthContentContainer, Button } from "../../common.styles";
-import { FormWrapper, Title, File, Body, Category } from "./styles";
+import {
+  FormWrapper,
+  Title,
+  File,
+  Body,
+  Category,
+} from "../createBlogPage/styles";
 
-export default function CreateBlogPage() {
+export default function UpdateBlogPage() {
   const { isShowing } = useContext(SideBarContext);
   const theme = useTheme();
   const [errors, setErrors] = useState("");
   const navigate = useNavigate();
-  const token = localStorage.getItem("jwtToken");
 
-  const { mutate, isLoading } = useMutation((formValues) => {
-    const endPoint = `${baseURL}/blogs/create`;
+  const blogData = localStorage.getItem("blogData");
+  const blog = JSON.parse(blogData);
+  const token = localStorage.getItem("jwtToken");
+  const { id } = useParams();
+
+  const { mutate } = useMutation((formValues) => {
+    const endPoint = `${baseURL}/blogs/update_blog/${id}`;
     let formData = new FormData();
     formData.append("title", formValues.title);
     formData.append("category", formValues.category);
     formData.append("image", formValues.image);
     formData.append("body", formValues.body);
-    Axios.post(endPoint, formData, {
+    Axios.put(endPoint, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         "x-auth-token": token,
@@ -44,10 +54,10 @@ export default function CreateBlogPage() {
 
   const formik = useFormik({
     initialValues: {
-      title: "",
-      category: "",
+      title: blog.title,
+      category: blog.category,
       image: "",
-      body: "",
+      body: blog.body,
     },
     validationSchema: Yup.object({
       title: Yup.string().required("Required*"),
@@ -134,7 +144,7 @@ export default function CreateBlogPage() {
           </div>
 
           <Button type="submit" bg={theme.color.primary}>
-            Publish
+            Save
           </Button>
         </FormWrapper>
       </AuthContentContainer>

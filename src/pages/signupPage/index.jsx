@@ -7,14 +7,17 @@ import { useMutation } from "react-query";
 import Axios from "axios";
 
 import { AuthContext } from "../../contexts/authContext";
+import { baseURL } from "../../utils/baseURL";
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
 import Loader from "../../components/loader";
+
 import {
   Container,
   FormWrapper,
   EachInputArea,
   InputField,
+  RadioArea,
   Button,
 } from "../../common.styles";
 
@@ -25,7 +28,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
 
   const { mutate, isLoading } = useMutation((formValues) => {
-    const endPoint = "http://localhost:8000/auth/signup";
+    const endPoint = `${baseURL}/auth/signup`;
     Axios.post(endPoint, formValues)
       .then(({ data }) => {
         const { token } = data;
@@ -41,6 +44,8 @@ export default function LoginPage() {
     initialValues: {
       firstname: "",
       lastname: "",
+      gender: "",
+      dob: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -52,6 +57,8 @@ export default function LoginPage() {
       lastname: Yup.string()
         .max(20, "Last Name must not be more that 20 characters")
         .required("Required*"),
+      gender: Yup.string().required("Required*"),
+      dob: Yup.string().required("Required*"),
       email: Yup.string()
         .email("Must be a Valid Email Address")
         .required("Required*"),
@@ -76,6 +83,7 @@ export default function LoginPage() {
             <h1>Create New Account</h1>
             <h3>Please sign-up to continue!</h3>
           </div>
+
           <EachInputArea>
             <label htmlFor="firstname">First Name:</label>
             <InputField
@@ -90,6 +98,7 @@ export default function LoginPage() {
               <p>{formik.errors.firstname}</p>
             ) : null}
           </EachInputArea>
+
           <EachInputArea>
             <label htmlFor="lastname">Last Name:</label>
             <InputField
@@ -104,6 +113,68 @@ export default function LoginPage() {
               <p>{formik.errors.lastname}</p>
             ) : null}
           </EachInputArea>
+
+          <RadioArea>
+            <p className="label">Gender: </p>
+
+            <div className="input-container">
+              <div className="input-wrapper">
+                <input
+                  type="radio"
+                  name="gender"
+                  id="male"
+                  value="male"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <label htmlFor="male">Male</label>
+              </div>
+
+              <div>
+                <input
+                  type="radio"
+                  name="gender"
+                  id="female"
+                  value="female"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <label htmlFor="female">Female</label>
+              </div>
+
+              <div>
+                <input
+                  type="radio"
+                  name="gender"
+                  id="other"
+                  value="other"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <label htmlFor="other">Other</label>
+              </div>
+            </div>
+
+            {formik.touched.gender && formik.errors.gender ? (
+              <p>{formik.errors.gender}</p>
+            ) : null}
+          </RadioArea>
+
+          <EachInputArea>
+            <label htmlFor="dob">Date of Birth:</label>
+            <InputField
+              id="dob"
+              name="dob"
+              type="date"
+              value={formik.values.dob}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.dob && formik.errors.dob ? (
+              <p>{formik.errors.dob}</p>
+            ) : null}
+          </EachInputArea>
+
           <EachInputArea>
             <label htmlFor="email">Email:</label>
             <InputField
@@ -118,6 +189,7 @@ export default function LoginPage() {
               <p>{formik.errors.email}</p>
             ) : null}
           </EachInputArea>
+
           <EachInputArea>
             <label htmlFor="password">Password:</label>
             <InputField
@@ -132,6 +204,7 @@ export default function LoginPage() {
               <p>{formik.errors.password}</p>
             ) : null}
           </EachInputArea>
+
           <EachInputArea>
             <label htmlFor="confirmPassword">Confirm Password:</label>
             <InputField
@@ -146,10 +219,13 @@ export default function LoginPage() {
               <p>{formik.errors.confirmPassword}</p>
             ) : null}
           </EachInputArea>
+
           {error && <div className="error-message">{error}</div>}
+
           <Button type="submit" bg={theme.color.primary} width="150px">
             Sign Up
           </Button>
+
           <p className="down-text">
             Already have an account?{" "}
             <Link exact="true" to="/login">

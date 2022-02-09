@@ -10,6 +10,7 @@ import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
 import Loader from "../../components/loader";
 import { AuthContext } from "../../contexts/authContext";
+import { baseURL } from "../../utils/baseURL";
 
 import {
   Container,
@@ -26,7 +27,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
 
   const { mutate, isLoading } = useMutation((formValues) => {
-    const endPoint = "http://localhost:8000/auth/login";
+    const endPoint = `${baseURL}/auth/login`;
     Axios.post(endPoint, formValues)
       .then(({ data }) => {
         const { token } = data;
