@@ -5,10 +5,12 @@ import { FiLogIn } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 
+import { baseURL } from "../../utils/baseURL";
 import { SideBarContext } from "../../contexts/sideBarContext";
 import ProfileAvatar from "../../assets/images/profile_avatar.png";
 import { Button } from "../../common.styles";
 import { NavWrapper, LeftSide, RightSide, LogoArea, Avatar } from "./styles";
+import { AuthContext } from "../../contexts/authContext";
 
 export default function Navbar({ authenticated }) {
   const theme = useTheme();
@@ -16,6 +18,7 @@ export default function Navbar({ authenticated }) {
   const navigate = useNavigate();
 
   const LoggedIn = () => {
+    const { author } = useContext(AuthContext);
     return (
       <NavWrapper>
         <LeftSide>
@@ -26,7 +29,14 @@ export default function Navbar({ authenticated }) {
         </LeftSide>
         <RightSide style={{ width: "auto" }}>
           <Avatar>
-            <img src={ProfileAvatar} alt="avatar" />
+            <img
+              src={
+                author.profilePic
+                  ? `${baseURL}${author.profilePic}`
+                  : ProfileAvatar
+              }
+              alt="avatar"
+            />
           </Avatar>
         </RightSide>
       </NavWrapper>

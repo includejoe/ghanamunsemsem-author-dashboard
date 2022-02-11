@@ -54,6 +54,7 @@ export default function BlogDetailsPage() {
       },
     })
       .then(({ data }) => {
+        blogContext.deleteBlog();
         navigate("/dashboard");
         console.log(data);
       })

@@ -21,7 +21,8 @@ const ProfileArea = styled.div`
   display: flex;
   height: 10%;
   align-items: center;
-  margin-bottom: 3em;
+  margin-bottom: 10px;
+  cursor: pointer;
 
   img {
     width: 50px;
@@ -29,6 +30,16 @@ const ProfileArea = styled.div`
     border-radius: 50%;
     margin-right: 1em;
   }
+`;
+
+const ProfileLink = styled(NavLink)`
+  color: #fff;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 3em;
+  padding-left: 10px;
+  border-radius: 4px;
 `;
 
 const MenuItems = styled.ul`
@@ -60,13 +71,14 @@ const Link = styled(NavLink)`
   align-items: center;
   height: 50px;
   cursor: pointer;
+  font-weight: 600;
   margin-bottom: 20px;
   padding-left: 10px;
   border-radius: 4px;
 
   &.active {
-    border-left: 5px solid ${({ theme }) => theme.color.secondary};
+    color: #00ffc9;
   }
 `;
 
-export { Container, ProfileArea, MenuItems, Link };
+export { Container, ProfileArea, ProfileLink, MenuItems, Link };

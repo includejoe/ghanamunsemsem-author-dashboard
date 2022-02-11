@@ -9,6 +9,7 @@ import Dashboard from "./pages/dashboard";
 import CreateBlogPage from "./pages/createBlogPage";
 import BlogDetailsPage from "./pages/blogDetailsPage";
 import UpdateBlogPage from "./pages/updateBlogPage";
+import ProfilePage from "./pages/profilePage";
 
 // context
 import { SideBarContextProvider } from "./contexts/sideBarContext";
@@ -66,6 +67,16 @@ function App() {
                   element={
                     <AuthRoute>
                       <UpdateBlogPage />
+                    </AuthRoute>
+                  }
+                />
+
+                <Route
+                  exact="true"
+                  path="/profile"
+                  element={
+                    <AuthRoute>
+                      <ProfilePage />
                     </AuthRoute>
                   }
                 />

@@ -51,7 +51,7 @@ export default function Dashboard() {
                   <div className="text-area">
                     <h3 className="title">{blog.title}</h3>
                     <p className="snippet">{snippet}...</p>
-                    <p className="date">{moment(blog.createdAt).fromNow()}</p>
+                    <p className="date">{moment(blog.updatedAt).fromNow()}</p>
                   </div>
                 </BlogTile>
               </Link>

@@ -90,6 +90,13 @@ const FormWrapper = styled.form`
   button {
     margin-top: 2em;
   }
+
+  .update-password-label {
+    color: ${({ theme }) => theme.fontColor.primary};
+    font-weight: 600;
+    margin-bottom: 1.2em;
+    margin-top: 1.2em;
+  }
 `;
 
 const EachInputArea = styled.div`
