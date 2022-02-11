@@ -222,7 +222,12 @@ export default function LoginPage() {
 
           {error && <div className="error-message">{error}</div>}
 
-          <Button type="submit" bg={theme.color.primary} width="150px">
+          <Button
+            disabled={formik.isSubmitting ? true : false}
+            type="submit"
+            bg={theme.color.primary}
+            width="150px"
+          >
             Sign Up
           </Button>
 

@@ -14,7 +14,6 @@ import ProfilePage from "./pages/profilePage";
 // context
 import { SideBarContextProvider } from "./contexts/sideBarContext";
 import { AuthContextProvider } from "./contexts/authContext";
-import { BlogContextProvider } from "./contexts/blogContext";
 
 import AuthRoute from "./utils/authRoute";
 import { ThemeProvider } from "styled-components";
@@ -24,66 +23,64 @@ function App() {
   return (
     <AuthContextProvider>
       <SideBarContextProvider>
-        <BlogContextProvider>
-          <ThemeProvider theme={theme}>
-            <Router>
-              <Routes>
-                <Route exact="true" path="/" element={<HomePage />} />
-                <Route exact="true" path="/login" element={<LoginPage />} />
-                <Route exact="true" path="/signup" element={<SignupPage />} />
-                <Route
-                  exact="true"
-                  path="/dashboard"
-                  element={
-                    <AuthRoute>
-                      <Dashboard />
-                    </AuthRoute>
-                  }
-                />
+        <ThemeProvider theme={theme}>
+          <Router>
+            <Routes>
+              <Route exact="true" path="/" element={<HomePage />} />
+              <Route exact="true" path="/login" element={<LoginPage />} />
+              <Route exact="true" path="/signup" element={<SignupPage />} />
+              <Route
+                exact="true"
+                path="/dashboard"
+                element={
+                  <AuthRoute>
+                    <Dashboard />
+                  </AuthRoute>
+                }
+              />
 
-                <Route
-                  exact="true"
-                  path="/create_blog"
-                  element={
-                    <AuthRoute>
-                      <CreateBlogPage />
-                    </AuthRoute>
-                  }
-                />
+              <Route
+                exact="true"
+                path="/create_blog"
+                element={
+                  <AuthRoute>
+                    <CreateBlogPage />
+                  </AuthRoute>
+                }
+              />
 
-                <Route
-                  exact="true"
-                  path="/blogs/:id"
-                  element={
-                    <AuthRoute>
-                      <BlogDetailsPage />
-                    </AuthRoute>
-                  }
-                />
+              <Route
+                exact="true"
+                path="/blogs/:id"
+                element={
+                  <AuthRoute>
+                    <BlogDetailsPage />
+                  </AuthRoute>
+                }
+              />
 
-                <Route
-                  exact="true"
-                  path="/update_blog/:id"
-                  element={
-                    <AuthRoute>
-                      <UpdateBlogPage />
-                    </AuthRoute>
-                  }
-                />
+              <Route
+                exact="true"
+                path="/update_blog/:id"
+                element={
+                  <AuthRoute>
+                    <UpdateBlogPage />
+                  </AuthRoute>
+                }
+              />
 
-                <Route
-                  exact="true"
-                  path="/profile"
-                  element={
-                    <AuthRoute>
-                      <ProfilePage />
-                    </AuthRoute>
-                  }
-                />
-              </Routes>
-            </Router>
-          </ThemeProvider>
-        </BlogContextProvider>
+              <Route
+                exact="true"
+                path="/profile"
+                element={
+                  <AuthRoute>
+                    <ProfilePage />
+                  </AuthRoute>
+                }
+              />
+            </Routes>
+          </Router>
+        </ThemeProvider>
       </SideBarContextProvider>
     </AuthContextProvider>
   );

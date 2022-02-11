@@ -7,7 +7,6 @@ import moment from "moment";
 import { baseURL } from "../../utils/baseURL";
 import Navbar from "../../components/navbar";
 import { SideBarContext } from "../../contexts/sideBarContext";
-import { BlogContext } from "../../contexts/blogContext";
 import SideBar from "../../components/sideBar";
 import Loader from "../../components/loader";
 import { Container, AuthContentContainer, Button } from "../../common.styles";
@@ -24,7 +23,6 @@ import {
 
 export default function BlogDetailsPage() {
   const { isShowing } = useContext(SideBarContext);
-  const blogContext = useContext(BlogContext);
   const token = localStorage.getItem("jwtToken");
   const [errors, setErrors] = useState("");
   const { id } = useParams();
@@ -38,7 +36,6 @@ export default function BlogDetailsPage() {
       },
     })
       .then(({ data }) => {
-        blogContext.setBlog(data.blog);
         return data.blog;
       })
       .catch((err) => {
@@ -54,7 +51,6 @@ export default function BlogDetailsPage() {
       },
     })
       .then(({ data }) => {
-        blogContext.deleteBlog();
         navigate("/dashboard");
         console.log(data);
       })

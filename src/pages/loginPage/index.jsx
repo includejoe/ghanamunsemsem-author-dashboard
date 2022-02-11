@@ -95,7 +95,12 @@ export default function LoginPage() {
             ) : null}
           </EachInputArea>
           {error && <div className="error-message">{error}</div>}
-          <Button type="submit" bg={theme.color.primary} width="150px">
+          <Button
+            disabled={formik.isSubmitting ? true : false}
+            type="submit"
+            bg={theme.color.primary}
+            width="150px"
+          >
             Login In
           </Button>
           <p className="down-text">

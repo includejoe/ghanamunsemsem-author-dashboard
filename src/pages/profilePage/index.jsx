@@ -1,15 +1,17 @@
 import React, { useContext, useState } from "react";
-import { useFormik } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 import { useTheme } from "styled-components";
 import Axios from "axios";
+import { useQuery, useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 import DefaultProfileImage from "../../assets/images/profile_avatar.png";
 import { baseURL } from "../../utils/baseURL";
 import Navbar from "../../components/navbar";
 import Loader from "../../components/loader";
 import { SideBarContext } from "../../contexts/sideBarContext";
-import { AuthContext } from "../../contexts/authContext";
+
 import SideBar from "../../components/sideBar";
 import {
   Container,
@@ -22,51 +24,76 @@ import {
 } from "../../common.styles";
 import { Top, ProfilePicture, ImageField } from "./styles";
 
-export default function Dashboard() {
+export default function ProfilePage() {
   const { isShowing } = useContext(SideBarContext);
-  const { author } = useContext(AuthContext);
   const theme = useTheme();
-  const [errors, setErrors] = useState("");
+  const token = localStorage.getItem("jwtToken");
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
-  const { firstname, lastname, gender, dob, email, profilePic } = author;
+  const { data } = useQuery("author", async () => {
+    const endPoint = `${baseURL}/auth/author`;
+    return Axios.get(endPoint, {
+      headers: {
+        "x-auth-token": token,
+      },
+    })
+      .then(({ data }) => {
+        return data.author;
+      })
+      .catch((err) => {
+        setError(err.response.data.errors[0].msg);
+        console.log(error);
+      });
+  });
 
-  const formik = useFormik({
-    initialValues: {
-      firstname,
-      lastname,
-      gender,
-      dob,
-      email,
-      oldPassword: "",
-      newPassword: "",
-      confirmNewPassword: "",
-      profilePic: "",
-    },
-    validationSchema: Yup.object({
-      firstname: Yup.string()
-        .max(20, "First Name must not be more that 20 characters")
-        .required("Required*"),
-      lastname: Yup.string()
-        .max(20, "Last Name must not be more that 20 characters")
-        .required("Required*"),
-      gender: Yup.string().required("Required*"),
-      dob: Yup.string().required("Required*"),
-      email: Yup.string()
-        .email("Must be a Valid Email Address")
-        .required("Required*"),
-      oldPassword: Yup.string().min(
-        6,
-        "Your password must be more than 6 characters"
-      ),
-      newPassword: Yup.string().min(
-        6,
-        "Your password must be more than 6 characters"
-      ),
-      confirmNewPassword: Yup.string(),
-    }),
-    onSubmit: (values) => {
-      console.log(values);
-    },
+  const validationSchema = Yup.object({
+    firstname: Yup.string()
+      .max(20, "First Name must not be more that 20 characters")
+      .required("Required*"),
+    lastname: Yup.string()
+      .max(20, "Last Name must not be more that 20 characters")
+      .required("Required*"),
+    gender: Yup.string().required("Required*"),
+    dob: Yup.string().required("Required*"),
+    email: Yup.string()
+      .email("Must be a Valid Email Address")
+      .required("Required*"),
+    oldPassword: Yup.string().min(
+      6,
+      "Your password must be more than 6 characters"
+    ),
+    newPassword: Yup.string().min(
+      6,
+      "Your password must be more than 6 characters"
+    ),
+    confirmNewPassword: Yup.string(),
+  });
+
+  const { mutate } = useMutation((formValues) => {
+    const endPoint = `${baseURL}/auth/update_profile`;
+    let formData = new FormData();
+    formData.append("firstname", formValues.firstname);
+    formData.append("lastname", formValues.lastname);
+    formData.append("gender", formValues.gender);
+    formData.append("dob", formValues.dob);
+    formData.append("oldPassword", formValues.oldPassword);
+    formData.append("newPassword", formValues.newPassword);
+    formData.append("confirmNewPassword", formValues.confirmNewPassword);
+    formData.append("profilePic", formValues.profilePic);
+    Axios.put(endPoint, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "x-auth-token": token,
+      },
+    })
+      .then(({ data }) => {
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        setError(err.response.data.errors[0].msg);
+        console.log(error);
+      });
   });
 
   return (
@@ -74,190 +101,229 @@ export default function Dashboard() {
       <Navbar authenticated={true} />
       <SideBar isShowing={isShowing} />
       <AuthContentContainer isSideBarShowing={isShowing}>
-        <Top>
-          <ProfilePicture>
-            <img
-              src={profilePic ? `${baseURL}${profilePic}` : DefaultProfileImage}
-              alt="profile"
-            />
-          </ProfilePicture>
-        </Top>
-        <FormWrapper style={{ width: "80%" }}>
-          <EachInputArea>
-            <label htmlFor="email">Upload Profile Picture:</label>
-            <ImageField
-              id="profilePic"
-              name="profilePic"
-              type="file"
-              disabled
-              value={formik.values.profilePic}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.profilePic && formik.errors.profilePic ? (
-              <p>{formik.errors.profilePic}</p>
-            ) : null}
-          </EachInputArea>
-
-          <EachInputArea>
-            <label htmlFor="firstname">First Name:</label>
-            <InputField
-              id="firstname"
-              name="firstname"
-              type="text"
-              value={formik.values.firstname}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.firstname && formik.errors.firstname ? (
-              <p>{formik.errors.firstname}</p>
-            ) : null}
-          </EachInputArea>
-
-          <EachInputArea>
-            <label htmlFor="lastname">Last Name:</label>
-            <InputField
-              id="lastname"
-              name="lastname"
-              type="text"
-              value={formik.values.lastname}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.lastname && formik.errors.lastname ? (
-              <p>{formik.errors.lastname}</p>
-            ) : null}
-          </EachInputArea>
-
-          <RadioArea>
-            <p className="label">Gender: </p>
-
-            <div className="input-container">
-              <div className="input-wrapper">
-                <input
-                  type="radio"
-                  name="gender"
-                  id="male"
-                  value="male"
-                  checked={gender === "male"}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+        {data ? (
+          <>
+            <Top>
+              <ProfilePicture>
+                <img
+                  src={
+                    data?.profilePic
+                      ? `${baseURL}${data?.profilePic}`
+                      : DefaultProfileImage
+                  }
+                  alt="profile"
                 />
-                <label htmlFor="male">Male</label>
-              </div>
+              </ProfilePicture>
+            </Top>
 
-              <div>
-                <input
-                  type="radio"
-                  name="gender"
-                  id="female"
-                  value="female"
-                  checked={gender === "female"}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                <label htmlFor="female">Female</label>
-              </div>
+            <Formik
+              initialValues={{
+                firstname: data.firstname,
+                lastname: data.lastname,
+                gender: data.gender,
+                dob: data.dob.slice(0, 10),
+                email: data.email,
+                oldPassword: "",
+                newPassword: "",
+                confirmNewPassword: "",
+                profilePic: "",
+              }}
+              validationSchema={validationSchema}
+              onSubmit={(values) => {
+                console.log("submitting");
+                mutate(values);
+              }}
+            >
+              {(props) => (
+                <FormWrapper
+                  onSubmit={props.handleSubmit}
+                  style={{ width: "80%" }}
+                >
+                  <EachInputArea>
+                    <label htmlFor="email">Update Profile Picture:</label>
+                    <ImageField
+                      id="profilePic"
+                      name="profilePic"
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>
+                        props.setFieldValue(
+                          "profilePic",
+                          e.currentTarget.files[0]
+                        )
+                      }
+                      onBlur={props.handleBlur}
+                    />
+                  </EachInputArea>
 
-              <div>
-                <input
-                  type="radio"
-                  name="gender"
-                  id="other"
-                  value="other"
-                  checked={gender === "other"}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                <label htmlFor="other">Other</label>
-              </div>
-            </div>
+                  <EachInputArea>
+                    <label htmlFor="firstname">First Name:</label>
+                    <InputField
+                      id="firstname"
+                      name="firstname"
+                      type="text"
+                      value={props.values.firstname}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                    />
+                    {props.touched.firstname && props.errors.firstname ? (
+                      <p>{props.errors.firstname}</p>
+                    ) : null}
+                  </EachInputArea>
 
-            {formik.touched.gender && formik.errors.gender ? (
-              <p>{formik.errors.gender}</p>
-            ) : null}
-          </RadioArea>
+                  <EachInputArea>
+                    <label htmlFor="lastname">Last Name:</label>
+                    <InputField
+                      id="lastname"
+                      name="lastname"
+                      type="text"
+                      value={props.values.lastname}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                    />
+                    {props.touched.lastname && props.errors.lastname ? (
+                      <p>{props.errors.lastname}</p>
+                    ) : null}
+                  </EachInputArea>
 
-          <EachInputArea>
-            <label htmlFor="dob">Date of Birth:</label>
-            <InputField
-              id="dob"
-              name="dob"
-              type="date"
-              value={formik.values.dob.slice(0, 10)}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.dob && formik.errors.dob ? (
-              <p>{formik.errors.dob}</p>
-            ) : null}
-          </EachInputArea>
+                  <RadioArea>
+                    <p className="label">Gender: </p>
 
-          <EachInputArea>
-            <label htmlFor="email">Email:</label>
-            <InputField
-              id="email"
-              name="email"
-              type="text"
-              disabled
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.email && formik.errors.email ? (
-              <p>{formik.errors.email}</p>
-            ) : null}
-          </EachInputArea>
+                    <div className="input-container">
+                      <div className="input-wrapper">
+                        <input
+                          type="radio"
+                          name="gender"
+                          id="male"
+                          value="male"
+                          checked={props.values.gender === "male"}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                        />
+                        <label htmlFor="male">Male</label>
+                      </div>
 
-          <div className="update-password-label">Update Password</div>
-          <EachInputArea>
-            <label htmlFor="oldPassword">Old Password:</label>
-            <InputField
-              id="oldPassword"
-              name="oldPassword"
-              type="password"
-              value={formik.values.oldPassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.oldPassword && formik.errors.oldPassword ? (
-              <p>{formik.errors.oldPassword}</p>
-            ) : null}
-          </EachInputArea>
-          <EachInputArea>
-            <label htmlFor="newPassword">New Password:</label>
-            <InputField
-              id="newPassword"
-              name="newPassword"
-              type="password"
-              value={formik.values.newPassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.newPassword && formik.errors.newPassword ? (
-              <p>{formik.errors.newPassword}</p>
-            ) : null}
-          </EachInputArea>
-          <EachInputArea>
-            <label htmlFor="confirmNewPassword">Confirm New Password:</label>
-            <InputField
-              id="confirmNewPassword"
-              name="confirmNewPassword"
-              type="password"
-              value={formik.values.confirmNewPassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.confirmNewPassword &&
-            formik.errors.confirmNewPassword ? (
-              <p>{formik.errors.confirmNewPassword}</p>
-            ) : null}
-          </EachInputArea>
+                      <div>
+                        <input
+                          type="radio"
+                          name="gender"
+                          id="female"
+                          value="female"
+                          checked={props.values.gender === "female"}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                        />
+                        <label htmlFor="female">Female</label>
+                      </div>
 
-          <Button type="submit" bg={theme.color.primary} width="100%">
-            Save
-          </Button>
-        </FormWrapper>
+                      <div>
+                        <input
+                          type="radio"
+                          name="gender"
+                          id="other"
+                          value="other"
+                          checked={props.values.gender === "other"}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                        />
+                        <label htmlFor="other">Other</label>
+                      </div>
+                    </div>
+
+                    {props.touched.gender && props.errors.gender ? (
+                      <p>{props.errors.gender}</p>
+                    ) : null}
+                  </RadioArea>
+
+                  <EachInputArea>
+                    <label htmlFor="dob">Date of Birth:</label>
+                    <InputField
+                      id="dob"
+                      name="dob"
+                      type="date"
+                      value={props.values.dob.slice(0, 10)}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                    />
+                    {props.touched.dob && props.errors.dob ? (
+                      <p>{props.errors.dob}</p>
+                    ) : null}
+                  </EachInputArea>
+
+                  <EachInputArea>
+                    <label htmlFor="email">Email:</label>
+                    <InputField
+                      id="email"
+                      name="email"
+                      type="text"
+                      disabled
+                      value={props.values.email}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                    />
+                    {props.touched.email && props.errors.email ? (
+                      <p>{props.errors.email}</p>
+                    ) : null}
+                  </EachInputArea>
+
+                  <div className="update-password-label">Update Password</div>
+                  <EachInputArea>
+                    <label htmlFor="oldPassword">Old Password:</label>
+                    <InputField
+                      id="oldPassword"
+                      name="oldPassword"
+                      type="password"
+                      value={props.values.oldPassword}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                    />
+                    {props.touched.oldPassword && props.errors.oldPassword ? (
+                      <p>{props.errors.oldPassword}</p>
+                    ) : null}
+                  </EachInputArea>
+                  <EachInputArea>
+                    <label htmlFor="newPassword">New Password:</label>
+                    <InputField
+                      id="newPassword"
+                      name="newPassword"
+                      type="password"
+                      value={props.values.newPassword}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                    />
+                    {props.touched.newPassword && props.errors.newPassword ? (
+                      <p>{props.errors.newPassword}</p>
+                    ) : null}
+                  </EachInputArea>
+                  <EachInputArea>
+                    <label htmlFor="confirmNewPassword">
+                      Confirm New Password:
+                    </label>
+                    <InputField
+                      id="confirmNewPassword"
+                      name="confirmNewPassword"
+                      type="password"
+                      value={props.values.confirmNewPassword}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                    />
+                    {props.touched.confirmNewPassword &&
+                    props.errors.confirmNewPassword ? (
+                      <p>{props.errors.confirmNewPassword}</p>
+                    ) : null}
+                  </EachInputArea>
+
+                  {error && <div className="error-message">{error}</div>}
+                  <Button type="submit" bg={theme.color.primary} width="100%">
+                    Save
+                  </Button>
+                </FormWrapper>
+              )}
+            </Formik>
+          </>
+        ) : (
+          <Loader />
+        )}
       </AuthContentContainer>
     </Container>
   );
