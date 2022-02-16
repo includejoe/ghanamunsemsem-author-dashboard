@@ -4,7 +4,6 @@ const TopSection = styled.div`
   width: 100%;
   padding: 0 50px;
   display: flex;
-  background: ${({ theme }) => theme.color.faint};
   justify-content: center;
   align-items: center;
 `;

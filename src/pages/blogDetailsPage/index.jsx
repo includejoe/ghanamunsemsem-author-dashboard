@@ -9,6 +9,7 @@ import Navbar from "../../components/navbar";
 import { SideBarContext } from "../../contexts/sideBarContext";
 import SideBar from "../../components/sideBar";
 import Loader from "../../components/loader";
+import DeleteConfirmationModal from "../../components/deleteConfirmationModal";
 import { Container, AuthContentContainer, Button } from "../../common.styles";
 import {
   Content,
@@ -25,6 +26,7 @@ export default function BlogDetailsPage() {
   const { isShowing } = useContext(SideBarContext);
   const token = localStorage.getItem("jwtToken");
   const [errors, setErrors] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -52,7 +54,6 @@ export default function BlogDetailsPage() {
     })
       .then(({ data }) => {
         navigate("/dashboard");
-        console.log(data);
       })
       .catch((err) => {
         setErrors(err.response.data.errors[0].msg);
@@ -62,6 +63,11 @@ export default function BlogDetailsPage() {
 
   return (
     <Container>
+      <DeleteConfirmationModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        handleDelete={handleDelete}
+      />
       <Navbar authenticated={true} />
       <SideBar isShowing={isShowing} />
       <AuthContentContainer isSideBarShowing={isShowing}>
@@ -90,7 +96,10 @@ export default function BlogDetailsPage() {
                 >
                   Edit
                 </Button>
-                <Button width="120px" onClick={handleDelete}>
+                <Button
+                  width="120px"
+                  onClick={() => setShowModal((prev) => !prev)}
+                >
                   Delete
                 </Button>
               </ControlArea>
