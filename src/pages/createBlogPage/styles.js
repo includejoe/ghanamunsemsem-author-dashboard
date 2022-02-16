@@ -69,6 +69,7 @@ const Category = styled.select`
   background: #fafafa;
   border: 1px solid #d1d1d1;
   border-radius: 4px;
+  cursor: pointer;
   transition: all 200ms ease-in;
 
   &:focus {
@@ -77,10 +78,9 @@ const Category = styled.select`
 `;
 
 const Body = styled.textarea`
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 350px;
-  max-height: 350px;
+  width: 100%;
+  height: 350px;
+  resize: none;
   outline: none;
   font-family: "Quicksand", sans-serif;
   font-weight: 500;

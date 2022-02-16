@@ -17,7 +17,7 @@ export default function DashboardPage() {
       <TopSection>
         <LeftSide>
           <div>
-            <h1>Become a writer</h1>
+            <h1>Become an Author</h1>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
               pariatur obcaecati rem id neque cumque nam. Quibusdam modi
@@ -29,7 +29,7 @@ export default function DashboardPage() {
               length="200px"
               bg={theme.color.faint}
               color={theme.fontColor.primary}
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/contact")}
             >
               Join the team
             </Button>

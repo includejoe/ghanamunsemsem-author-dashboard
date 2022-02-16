@@ -5,13 +5,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/loginPage";
 import SignupPage from "./pages/signupPage";
 import HomePage from "./pages/homePage";
+import ContactPage from "./pages/contactPage";
 import Dashboard from "./pages/dashboard";
 import CreateBlogPage from "./pages/createBlogPage";
 import BlogDetailsPage from "./pages/blogDetailsPage";
 import UpdateBlogPage from "./pages/updateBlogPage";
 import ProfilePage from "./pages/profilePage";
 
-// context
+// contexts
 import { SideBarContextProvider } from "./contexts/sideBarContext";
 import { AuthContextProvider } from "./contexts/authContext";
 
@@ -27,6 +28,7 @@ function App() {
           <Router>
             <Routes>
               <Route exact="true" path="/" element={<HomePage />} />
+              <Route exact="true" path="/contact" element={<ContactPage />} />
               <Route exact="true" path="/login" element={<LoginPage />} />
               <Route exact="true" path="/signup" element={<SignupPage />} />
               <Route

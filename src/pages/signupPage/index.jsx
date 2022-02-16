@@ -49,6 +49,7 @@ export default function LoginPage() {
       email: "",
       password: "",
       confirmPassword: "",
+      secretCode: "",
     },
     validationSchema: Yup.object({
       firstname: Yup.string()
@@ -66,6 +67,7 @@ export default function LoginPage() {
         .min(6, "Your password must be more than 6 characters")
         .required("Required*"),
       confirmPassword: Yup.string().required("Required*"),
+      secretCode: Yup.string().required("Required*"),
     }),
     onSubmit: (values) => {
       mutate(values);
@@ -220,14 +222,24 @@ export default function LoginPage() {
             ) : null}
           </EachInputArea>
 
+          <EachInputArea>
+            <label htmlFor="secretCode">Secret Code:</label>
+            <InputField
+              id="secretCode"
+              name="secretCode"
+              type="text"
+              value={formik.values.secretCode}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.secretCode && formik.errors.secretCode ? (
+              <p>{formik.errors.secretCode}</p>
+            ) : null}
+          </EachInputArea>
+
           {error && <div className="error-message">{error}</div>}
 
-          <Button
-            disabled={formik.isSubmitting ? true : false}
-            type="submit"
-            bg={theme.color.primary}
-            width="150px"
-          >
+          <Button type="submit" bg={theme.color.primary} width="100%">
             Sign Up
           </Button>
 

@@ -20,6 +20,7 @@ const Button = styled.button`
   font-size: ${({ theme, fontSize }) =>
     fontSize ? fontSize : theme.fontSize.sm};
   font-weight: 600;
+  font-family: "Poppins", sans-serif;
   background: ${({ theme, bg }) => (bg ? bg : theme.color.secondary)};
   color: ${({ color }) => (color ? color : "#fff")};
   transition: 0.2s all ease-in-out;
@@ -35,7 +36,7 @@ const Button = styled.button`
 const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  width: 550px;
+  width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
