@@ -7,6 +7,7 @@ import SignupPage from "./pages/signupPage";
 import HomePage from "./pages/homePage";
 import ContactPage from "./pages/contactPage";
 import Dashboard from "./pages/dashboard";
+import CategoryPage from "./pages/categoryPage";
 import CreateBlogPage from "./pages/createBlogPage";
 import BlogDetailsPage from "./pages/blogDetailsPage";
 import UpdateBlogPage from "./pages/updateBlogPage";
@@ -31,12 +32,23 @@ function App() {
               <Route exact="true" path="/contact" element={<ContactPage />} />
               <Route exact="true" path="/login" element={<LoginPage />} />
               <Route exact="true" path="/signup" element={<SignupPage />} />
+
               <Route
                 exact="true"
                 path="/dashboard"
                 element={
                   <AuthRoute>
                     <Dashboard />
+                  </AuthRoute>
+                }
+              />
+
+              <Route
+                exact="true"
+                path="/category/:category"
+                element={
+                  <AuthRoute>
+                    <CategoryPage />
                   </AuthRoute>
                 }
               />

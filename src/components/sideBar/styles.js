@@ -72,13 +72,51 @@ const Link = styled(NavLink)`
   height: 50px;
   cursor: pointer;
   font-weight: 600;
-  margin-bottom: 20px;
   padding-left: 10px;
-  border-radius: 4px;
 
   &.active {
     color: #00ffc9;
   }
 `;
 
-export { Container, ProfileArea, ProfileLink, MenuItems, Link };
+const Category = styled.li`
+  div {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    padding-left: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+    font-size: 19px;
+    padding-left: 45px;
+    display: ${({ isCategoryClicked }) =>
+      isCategoryClicked ? "block" : "none"};
+  }
+`;
+
+const CatLink = styled(NavLink)`
+  color: #fff;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+
+  &.active {
+    color: #00ffc9;
+  }
+`;
+
+export {
+  Container,
+  ProfileArea,
+  ProfileLink,
+  MenuItems,
+  Link,
+  Category,
+  CatLink,
+};

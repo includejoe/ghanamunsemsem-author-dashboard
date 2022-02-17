@@ -4,7 +4,6 @@ import * as Yup from "yup";
 
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
-import Image1 from "../../assets/images/contact.svg";
 import {
   Container,
   FormWrapper,

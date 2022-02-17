@@ -181,6 +181,9 @@ const AuthContentContainer = styled.div`
   padding: 20px 50px;
   margin-left: ${({ isSideBarShowing }) => (isSideBarShowing ? "250px" : "0")};
   transition: all 0.3s ease-in-out;
+
+  .notice {
+  }
 `;
 
 export {

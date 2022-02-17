@@ -20,7 +20,7 @@ export default function CreateBlogPage() {
   const navigate = useNavigate();
   const token = localStorage.getItem("jwtToken");
 
-  const { mutate, isLoading } = useMutation((formValues) => {
+  const { mutate } = useMutation((formValues) => {
     const endPoint = `${baseURL}/blogs/create`;
     let formData = new FormData();
     formData.append("title", formValues.title);

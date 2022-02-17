@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import Axios from "axios";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { baseURL } from "../../utils/baseURL";
 import Navbar from "../../components/navbar";
@@ -10,15 +10,16 @@ import Loader from "../../components/loader";
 import { SideBarContext } from "../../contexts/sideBarContext";
 import SideBar from "../../components/sideBar";
 import { Container, AuthContentContainer } from "../../common.styles";
-import { BlogTile } from "./styles";
+import { BlogTile } from "../dashboard/styles";
 
-export default function Dashboard() {
+export default function CategoryPage() {
   const { isShowing } = useContext(SideBarContext);
   const token = localStorage.getItem("jwtToken");
   const [errors, setErrors] = useState("");
+  const { category } = useParams();
 
-  const { data, isLoading } = useQuery("my_blogs", async () => {
-    const endPoint = `${baseURL}/blogs/my_blogs`;
+  const { data, isLoading, refetch } = useQuery("blog_category", async () => {
+    const endPoint = `${baseURL}/blogs/category/${category}`;
     return Axios.get(endPoint, {
       headers: {
         "x-auth-token": token,
@@ -31,6 +32,10 @@ export default function Dashboard() {
         setErrors(err.response.data.errors[0].msg);
       });
   });
+
+  useEffect(() => {
+    refetch();
+  }, [category, refetch]);
 
   return (
     <Container>
