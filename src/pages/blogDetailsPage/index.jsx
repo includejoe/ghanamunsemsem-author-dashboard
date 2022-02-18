@@ -3,21 +3,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useQuery } from "react-query";
 import moment from "moment";
+import { useMediaQuery } from "react-responsive";
 
+import { breakPoint } from "../../utils/breakPoints";
 import { baseURL } from "../../utils/baseURL";
 import Navbar from "../../components/navbar";
 import { SideBarContext } from "../../contexts/sideBarContext";
 import SideBar from "../../components/sideBar";
 import Loader from "../../components/loader";
 import DeleteConfirmationModal from "../../components/deleteConfirmationModal";
-import { Container, AuthContentContainer, Button } from "../../common.styles";
+import {
+  Container,
+  AuthContentContainer,
+  CategoryLabel,
+  Button,
+} from "../../common.styles";
 import {
   Content,
   BlogImage,
   Header,
   Title,
   Date,
-  Category,
   Body,
   ControlArea,
 } from "./styles";
@@ -61,6 +67,10 @@ export default function BlogDetailsPage() {
       });
   }
 
+  const isMobile = useMediaQuery({
+    query: `(max-width: ${breakPoint.mobile}px)`,
+  });
+
   return (
     <Container>
       <DeleteConfirmationModal
@@ -69,7 +79,7 @@ export default function BlogDetailsPage() {
         handleDelete={handleDelete}
       />
       <Navbar authenticated={true} />
-      <SideBar isShowing={isShowing} />
+      <SideBar isShowing={isMobile ? !isShowing : isShowing} />
       <AuthContentContainer isSideBarShowing={isShowing}>
         {isLoading ? (
           <Loader />
@@ -84,9 +94,9 @@ export default function BlogDetailsPage() {
                     {moment(data.createdAt).format("Do MMMM, YYYY h:mm:ss a")}
                   </i>
                 </Date>
-                <Category>
+                <CategoryLabel category={data.category}>
                   <i>{data.category.toUpperCase()}</i>
-                </Category>
+                </CategoryLabel>
               </Header>
               <Body>{data.body}</Body>
               <ControlArea>

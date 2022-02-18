@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { breakPoint } from "../../utils/breakPoints";
+
 const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
@@ -20,6 +22,10 @@ const FormWrapper = styled.form`
       font-size: 11px;
       font-weight: 500;
     }
+  }
+
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    width: 100%;
   }
 `;
 

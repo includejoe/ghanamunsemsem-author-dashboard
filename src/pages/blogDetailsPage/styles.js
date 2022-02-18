@@ -34,19 +34,6 @@ const Header = styled.div`
 
 const Date = styled.span``;
 
-const Category = styled.span`
-  background: ${({ theme }) => theme.color.faint};
-  color: ${({ theme }) => theme.fontColor.primary};
-  height: 30px;
-  width: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-weight: 600;
-  padding-right: 5px;
-`;
-
 const ControlArea = styled.div`
   width: 100%;
   display: flex;
@@ -54,4 +41,4 @@ const ControlArea = styled.div`
   align-items: center;
 `;
 
-export { Content, BlogImage, Header, Title, Date, Category, Body, ControlArea };
+export { Content, BlogImage, Header, Title, Date, Body, ControlArea };

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { breakPoint } from "./utils/breakPoints";
+
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -98,6 +100,10 @@ const FormWrapper = styled.form`
     margin-bottom: 1.2em;
     margin-top: 1.2em;
   }
+
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    width: 350px;
+  }
 `;
 
 const EachInputArea = styled.div`
@@ -182,8 +188,35 @@ const AuthContentContainer = styled.div`
   margin-left: ${({ isSideBarShowing }) => (isSideBarShowing ? "250px" : "0")};
   transition: all 0.3s ease-in-out;
 
-  .notice {
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    margin-left: 0;
+    padding: 10px;
+    width: 100%;
   }
+`;
+
+const CategoryLabel = styled.span`
+  background: ${({ category }) =>
+    category === "general"
+      ? "#99ffb4"
+      : category === "politics"
+      ? "#ffad99"
+      : category === "sports"
+      ? "#ff99e0"
+      : category === "entertainment"
+      ? "#ce99ff"
+      : category === "business"
+      ? "#99caff"
+      : "#ffe299"};
+  color: ${({ theme }) => theme.fontColor.primary};
+  height: 30px;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 600;
+  padding-right: 5px;
 `;
 
 export {
@@ -194,4 +227,5 @@ export {
   RadioArea,
   InputField,
   AuthContentContainer,
+  CategoryLabel,
 };

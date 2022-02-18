@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { breakPoint } from "../../utils/breakPoints";
+
 const BlogTile = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,25 +25,30 @@ const BlogTile = styled.div`
   .text-area {
     display: flex;
     flex-direction: column;
-    height: 50%;
+    height: 55%;
     padding: 20px;
     justify-content: center;
 
     .title {
       color: #fff;
       font-size: 25px;
-      font-weight: 700px;
     }
 
     .snippet {
       color: #fff;
-      font-weight: 700px;
     }
 
-    .date {
-      font-size: 14px;
-      color: #fff;
-      font-weight: 600;
+    .date-and-category {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+
+      .date {
+        font-size: 14px;
+        color: #fff;
+        font-weight: 600;
+      }
     }
   }
 
@@ -52,6 +59,24 @@ const BlogTile = styled.div`
         rgba(30, 30, 30, 1) 100%
       ),
       url(${({ image }) => image});
+  }
+
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    height: 180px;
+
+    .text-area {
+      padding: 5px;
+      height: 65%;
+
+      .title {
+        font-size: 19.5px;
+      }
+
+      .snippet {
+        line-height: 1;
+        margin-bottom: 5px;
+      }
+    }
   }
 `;
 

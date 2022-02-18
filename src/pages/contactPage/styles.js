@@ -1,11 +1,18 @@
 import styled from "styled-components";
 
+import { breakPoint } from "../../utils/breakPoints";
+
 const TopSection = styled.div`
   width: 100%;
   padding: 0 50px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    flex-direction: column;
+    padding: 0 1em;
+  }
 `;
 
 const Left = styled.div`
@@ -23,6 +30,14 @@ const Left = styled.div`
       margin-bottom: 1em;
     }
   }
+
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    div {
+      padding: 1em;
+      text-align: left;
+      line-height: 1.8;
+    }
+  }
 `;
 
 const Right = styled.div`
@@ -31,6 +46,11 @@ const Right = styled.div`
   flex: 2;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    padding: 0;
+    width: 100%;
+  }
 `;
 
 const Message = styled.textarea`

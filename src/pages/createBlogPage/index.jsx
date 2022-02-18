@@ -5,7 +5,9 @@ import * as Yup from "yup";
 import { useMutation } from "react-query";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
+import { breakPoint } from "../../utils/breakPoints";
 import { baseURL } from "../../utils/baseURL";
 import Navbar from "../../components/navbar";
 import { SideBarContext } from "../../contexts/sideBarContext";
@@ -59,10 +61,14 @@ export default function CreateBlogPage() {
     },
   });
 
+  const isMobile = useMediaQuery({
+    query: `(max-width: ${breakPoint.mobile}px)`,
+  });
+
   return (
     <Container>
       <Navbar authenticated={true} />
-      <SideBar isShowing={isShowing} />
+      <SideBar isShowing={isMobile ? !isShowing : isShowing} />
       <AuthContentContainer isSideBarShowing={isShowing}>
         <FormWrapper onSubmit={formik.handleSubmit}>
           <div className="input-container">

@@ -5,7 +5,9 @@ import { useTheme } from "styled-components";
 import Axios from "axios";
 import { useQuery, useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
+import { breakPoint } from "../../utils/breakPoints";
 import DefaultProfileImage from "../../assets/images/profile_avatar.png";
 import { baseURL } from "../../utils/baseURL";
 import Navbar from "../../components/navbar";
@@ -43,7 +45,6 @@ export default function ProfilePage() {
       })
       .catch((err) => {
         setError(err.response.data.errors[0].msg);
-        console.log(error);
       });
   });
 
@@ -96,6 +97,10 @@ export default function ProfilePage() {
       });
   });
 
+  const isMobile = useMediaQuery({
+    query: `(max-width: ${breakPoint.mobile}px)`,
+  });
+
   return (
     <Container>
       <Navbar authenticated={true} />
@@ -137,7 +142,7 @@ export default function ProfilePage() {
               {(props) => (
                 <FormWrapper
                   onSubmit={props.handleSubmit}
-                  style={{ width: "80%" }}
+                  style={isMobile ? { width: "100%" } : { width: "80%" }}
                 >
                   <EachInputArea>
                     <label htmlFor="email">Update Profile Picture:</label>

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { breakPoint } from "../../utils/breakPoints";
 const Background = styled.div`
   width: 100%;
   height: 100%;
@@ -36,6 +37,14 @@ const ModalWrapper = styled.div`
     display: flex;
     width: 80%;
     justify-content: space-between;
+  }
+
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    width: 350px;
+
+    .buttons-area {
+      width: 100%;
+    }
   }
 `;
 

@@ -4,7 +4,7 @@ import Axios from "axios";
 import { FaHome } from "react-icons/fa";
 import { BsPenFill } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
-import { BiCategory } from "react-icons/bi";
+// import { BiCategory } from "react-icons/bi";
 
 import ProfileAvatar from "../../assets/images/profile_avatar.png";
 import { baseURL } from "../../utils/baseURL";
@@ -15,15 +15,15 @@ import {
   MenuItems,
   Link,
   ProfileLink,
-  Category,
-  CatLink,
+  // Category,
+  // CatLink,
 } from "./styles";
 
 export default function SideBar({ isShowing }) {
   const { logout } = useContext(AuthContext);
   const token = localStorage.getItem("jwtToken");
   const [errors, setErrors] = useState("");
-  const [isCategoryClicked, setIsCategoryClicked] = useState(false);
+  // const [isCategoryClicked, setIsCategoryClicked] = useState(false);
 
   const { isSuccess, data } = useQuery("author", async () => {
     const endPoint = `${baseURL}/auth/author`;
@@ -73,7 +73,7 @@ export default function SideBar({ isShowing }) {
           </Link>
         </li>
 
-        <Category
+        {/* <Category
           isCategoryClicked={isCategoryClicked}
           onClick={() => setIsCategoryClicked((prev) => !prev)}
         >
@@ -116,7 +116,7 @@ export default function SideBar({ isShowing }) {
               </CatLink>
             </li>
           </ul>
-        </Category>
+        </Category> */}
 
         <li>
           <Link exact="true" to="/create_blog">

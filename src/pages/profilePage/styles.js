@@ -1,8 +1,15 @@
 import styled from "styled-components";
 
+import { breakPoint } from "../../utils/breakPoints";
+
 const Top = styled.div`
   width: 80%;
   display: flex;
+
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    width: 100%;
+    padding: 10px;
+  }
 `;
 
 const ProfilePicture = styled.div`

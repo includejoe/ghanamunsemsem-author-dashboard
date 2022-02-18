@@ -5,7 +5,9 @@ import * as Yup from "yup";
 import { useMutation, useQuery } from "react-query";
 import Axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
+import { breakPoint } from "../../utils/breakPoints";
 import { baseURL } from "../../utils/baseURL";
 import Loader from "../../components/loader";
 import Navbar from "../../components/navbar";
@@ -70,10 +72,14 @@ export default function UpdateBlogPage() {
     body: Yup.string().required("Required*"),
   });
 
+  const isMobile = useMediaQuery({
+    query: `(max-width: ${breakPoint.mobile}px)`,
+  });
+
   return (
     <Container>
       <Navbar authenticated={true} />
-      <SideBar isShowing={isShowing} />
+      <SideBar isShowing={isMobile ? !isShowing : isShowing} />
       <AuthContentContainer isSideBarShowing={isShowing}>
         {data ? (
           <Formik

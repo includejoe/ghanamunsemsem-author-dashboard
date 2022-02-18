@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
+import { breakPoint } from "../../utils/breakPoints";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,6 +17,11 @@ const Container = styled.div`
   position: fixed;
   left: ${({ isShowing }) => (isShowing ? 0 : "-1000px")};
   transition: all 0.3s ease-in-out;
+
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    width: 70%;
+    margin-top: 65px;
+  }
 `;
 
 const ProfileArea = styled.div`

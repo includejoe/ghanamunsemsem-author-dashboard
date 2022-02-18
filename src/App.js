@@ -7,7 +7,7 @@ import SignupPage from "./pages/signupPage";
 import HomePage from "./pages/homePage";
 import ContactPage from "./pages/contactPage";
 import Dashboard from "./pages/dashboard";
-import CategoryPage from "./pages/categoryPage";
+// import CategoryPage from "./pages/categoryPage";
 import CreateBlogPage from "./pages/createBlogPage";
 import BlogDetailsPage from "./pages/blogDetailsPage";
 import UpdateBlogPage from "./pages/updateBlogPage";
@@ -43,7 +43,7 @@ function App() {
                 }
               />
 
-              <Route
+              {/* <Route
                 exact="true"
                 path="/category/:category"
                 element={
@@ -51,7 +51,7 @@ function App() {
                     <CategoryPage />
                   </AuthRoute>
                 }
-              />
+              /> */}
 
               <Route
                 exact="true"

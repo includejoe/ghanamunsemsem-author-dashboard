@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import Axios from "axios";
 import { useTheme } from "styled-components";
@@ -18,7 +18,6 @@ export default function Navbar({ authenticated }) {
   const sideBarContext = useContext(SideBarContext);
   const navigate = useNavigate();
   const token = localStorage.getItem("jwtToken");
-  const [errors, setErrors] = useState("");
 
   const { isSuccess, data } = useQuery("author", async () => {
     const endPoint = `${baseURL}/auth/author`;
@@ -30,10 +29,7 @@ export default function Navbar({ authenticated }) {
       .then(({ data }) => {
         return data.author;
       })
-      .catch((err) => {
-        setErrors(err.response.data.errors[0].msg);
-        console.log(errors);
-      });
+      .catch((err) => {});
   });
 
   const LoggedIn = () => {

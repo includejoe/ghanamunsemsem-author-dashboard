@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { breakPoint } from "../../utils/breakPoints";
+
 const NavWrapper = styled.nav`
   width: 100%;
   display: flex;
@@ -12,6 +14,11 @@ const NavWrapper = styled.nav`
   top: 0;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.281);
   z-index: 99;
+
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    height: 65px;
+    padding: 0 1em;
+  }
 `;
 
 const RightSide = styled.div`
@@ -21,6 +28,22 @@ const RightSide = styled.div`
   justify-content: space-between;
   align-items: center;
   color: ${({ theme }) => theme.secondary};
+
+  @media screen and (max-width: ${breakPoint.mobile}px) {
+    width: auto;
+
+    button {
+      font-size: 0.8em;
+
+      &:not(:last-of-type) {
+        margin-right: 5px;
+      }
+
+      span {
+        font-size: 19px;
+      }
+    }
+  }
 `;
 
 const LeftSide = styled.div`

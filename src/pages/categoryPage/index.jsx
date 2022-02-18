@@ -3,7 +3,9 @@ import { useQuery } from "react-query";
 import Axios from "axios";
 import moment from "moment";
 import { Link, useParams } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
+import { breakPoint } from "../../utils/breakPoints";
 import { baseURL } from "../../utils/baseURL";
 import Navbar from "../../components/navbar";
 import Loader from "../../components/loader";
@@ -37,10 +39,14 @@ export default function CategoryPage() {
     refetch();
   }, [category, refetch]);
 
+  const isMobile = useMediaQuery({
+    query: `(max-width: ${breakPoint.mobile}px)`,
+  });
+
   return (
     <Container>
       <Navbar authenticated={true} />
-      <SideBar isShowing={isShowing} />
+      <SideBar isShowing={isMobile ? !isShowing : isShowing} />
       <AuthContentContainer isSideBarShowing={isShowing}>
         {isLoading ? (
           <Loader />
