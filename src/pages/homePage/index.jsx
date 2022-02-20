@@ -17,7 +17,7 @@ export default function DashboardPage() {
       <TopSection>
         <LeftSide>
           <div>
-            <h1>Become an Author</h1>
+            <h1>Be an Author</h1>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
               pariatur obcaecati rem id neque cumque nam. Quibusdam modi
