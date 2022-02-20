@@ -10,6 +10,7 @@ const TopSection = styled.div`
 
   @media screen and (max-width: ${breakPoint.mobile}px) {
     flex-direction: column-reverse;
+    height: 100vh;
   }
 `;
 
@@ -66,7 +67,7 @@ const RightSide = styled.div`
     height: 50vh;
 
     img {
-      width: 70%;
+      width: 80%;
     }
   }
 `;

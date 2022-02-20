@@ -144,6 +144,7 @@ const RadioArea = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   margin-bottom: 1.2em;
 
   input {
