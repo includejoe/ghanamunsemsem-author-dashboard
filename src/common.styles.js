@@ -189,6 +189,10 @@ const AuthContentContainer = styled.div`
   margin-left: ${({ isSideBarShowing }) => (isSideBarShowing ? "250px" : "0")};
   transition: all 0.3s ease-in-out;
 
+  .notice {
+    text-align: center;
+  }
+
   @media screen and (max-width: ${breakPoint.mobile}px) {
     margin-left: 0;
     padding: 10px;
